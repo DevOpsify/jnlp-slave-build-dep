@@ -17,9 +17,11 @@ RUN set -ex; \
 # wget: error getting response: Connection reset by peer
         apk upgrade --no-cache libcurl; \
  	\
-	apk add --no-cache --virtual .fetch-deps \
+	apk add --update --no-cache --virtual .fetch-deps \
 		curl \
 		tar \
+ 		nodejs \
+                nodejs-npm \
 	; \
 	\
 # this "case" statement is generated via "update.sh"
@@ -49,4 +51,5 @@ RUN set -ex; \
 	dockerd -v; \
 	docker -v
 
-
+RUN mkdir /home/jenkins/.docker
+COPY config.json /home/jenkins/.docker/
