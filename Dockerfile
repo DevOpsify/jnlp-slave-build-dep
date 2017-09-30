@@ -20,6 +20,7 @@ RUN set -ex; \
 	apk add --update --no-cache --virtual .fetch-deps \
 		curl \
 		tar \
+                jq \
 	; \
 	\
 # this "case" statement is generated via "update.sh"
