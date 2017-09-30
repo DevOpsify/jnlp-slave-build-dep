@@ -20,7 +20,6 @@ RUN set -ex; \
 	apk add --update --no-cache --virtual .fetch-deps \
 		curl \
 		tar \
-                jq \
 	; \
 	\
 # this "case" statement is generated via "update.sh"
@@ -60,7 +59,7 @@ RUN chmod a+x /usr/local/bin/docker-credential-ecr-login
 # add aws=cli
 RUN \
 	mkdir -p /aws && \
-	apk -Uuv add groff less python py-pip && \
+	apk -Uuv add groff less python py-pip jq && \
 	pip install awscli && \
 	apk --purge -v del py-pip && \
 	rm /var/cache/apk/*
