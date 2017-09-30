@@ -59,7 +59,7 @@ RUN chmod a+x /usr/local/bin/docker-credential-ecr-login
 # add aws=cli
 RUN \
 	mkdir -p /aws && \
-	apk -Uuv add groff less python py-pip jq && \
+	apk -Uuv add groff less python py-pip jq curl && \
 	pip install awscli && \
 	apk --purge -v del py-pip && \
 	rm /var/cache/apk/*
