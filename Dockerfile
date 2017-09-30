@@ -20,8 +20,6 @@ RUN set -ex; \
 	apk add --update --no-cache --virtual .fetch-deps \
 		curl \
 		tar \
- 		nodejs \
-                nodejs-npm \
 	; \
 	\
 # this "case" statement is generated via "update.sh"
@@ -51,5 +49,18 @@ RUN set -ex; \
 	dockerd -v; \
 	docker -v
 
+
+# add docker config to use ecr
 RUN mkdir /home/jenkins/.docker
 COPY config.json /home/jenkins/.docker/
+COPY docker-credential-ecr-login /usr/local/bin/
+RUN chmod a+x /usr/local/bin/docker-credential-ecr-login
+
+# add aws=cli
+RUN \
+	mkdir -p /aws && \
+	apk -Uuv add groff less python py-pip jq curl && \
+	pip install awscli && \
+	apk --purge -v del py-pip && \
+	rm /var/cache/apk/*
+
